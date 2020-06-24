@@ -17,25 +17,7 @@ const userSchema=new mongoose.Schema({
         type: String,
         trim: true,
         required: true
-    },
-    messages:[
-        {
-            text: String,
-            created: {
-                type: Date,
-                default: Date.now
-            },
-            postedBy:{
-                type: ObjectId,
-                ref: "User"
-            },
-            postedTo:{
-                type: ObjectId,
-                ref: "User"
-            }
-
-        }
-    ]
+    }
 })
 userSchema.virtual("password")
     .set(function(password){
