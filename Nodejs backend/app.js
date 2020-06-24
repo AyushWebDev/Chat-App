@@ -17,7 +17,17 @@ mongoose.connection.on('error', err => {
 // app.use('/',userRoutes);
 // app.
 const userRoutes=require("./routes/user");
+const messageRoutes=require("./routes/messages");
 app.use("/",userRoutes);
+app.use("/",messageRoutes);
+
+app.use(function(err,req,res,next){
+    if(err.name==="UnauthorizedError"){
+        res.status(401).json({
+            error: "Unauthorised!!"
+        });
+    } 
+});
 
 
 app.listen(8000,()=>{
