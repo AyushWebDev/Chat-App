@@ -102,7 +102,7 @@ class Messages extends Component{
         const {fromId,toId,text}=this.state;
         return(
             <div>
-            <div style={{overflow: "auto",height: "500px",widht: "100px",backgroundColor: "#ffffcc"}}>
+            <div style={{overflow: "auto",height: "500px",widht: "100px"}}>
                     {this.state.error &&
                         <p className="alert alert-danger">{this.state.error}</p>
                     }
@@ -111,14 +111,15 @@ class Messages extends Component{
                         if(msg.postedBy._id===fromId)
                         return(
                         
-                        <div style={{textAlign: "left",marginTop: "40px"}}><span class="bg-warning" style={{borderRadius: "10px",padding: "15px",margin: "20px"}}>{msg.text}</span></div>
+                        <div style={{textAlign: "right",marginTop: "40px"}}><span class="bg-primary" style={{borderRadius: "10px",padding: "15px",margin: "20px"}}>{msg.text}</span></div>
                         )
                         return(
-                            <div style={{textAlign: "right",marginTop: "40px"}}><span class="bg-primary" style={{borderRadius: "10px",padding: "15px",margin: "20px"}}>{msg.text}</span></div>
+                            <div style={{textAlign: "left",marginTop: "40px"}}><span class="bg-warning" style={{borderRadius: "10px",padding: "15px",margin: "20px"}}>{msg.text}</span></div>
                         )
                         
                     })
                     }
+                    
                 
             
             </div>

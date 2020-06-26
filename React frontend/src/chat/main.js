@@ -4,6 +4,7 @@ import {list} from './api';
 import {isAuthenticated} from '../auth/api'
 import Default from '../images/avatar.png';
 import Messages from './messages';
+import chatwall from '../images/chatwall.jpg';
 
 
 class Chat extends Component{
@@ -12,7 +13,8 @@ class Chat extends Component{
         this.state={
             users: [],
             toId: "",
-            open: false
+            open: false,
+            search: ""
         }
     }
 
@@ -40,6 +42,13 @@ class Chat extends Component{
         })
     }
 
+    handleChange=name=>event=>{
+        event.preventDefault();
+        this.setState({
+            [name]: event.target.value
+        })
+    }
+
    
 
     render(){
@@ -52,9 +61,19 @@ class Chat extends Component{
             <div className="row" style={{boxShadow: "1px 3px 5px",marginTop: "80px"}}>
             <div className="col-md-4" style={{overflow: "scroll",height: "500px",widht: "50px"}}>
                 {
+                    <>
+                    <div>
+                        <form className="form-inline">
+                            <input type="text" placeholder="Search" onChange={this.handleChange("search")} value={this.state.search}/>
+                        </form>
+                    </div>
+                    {
                     users.map((user,i)=>{
+                        if(user.name.toUpperCase().includes(this.state.search.toUpperCase()) && this.state.search)
+                        {
                         return(
                                 // <Link to={`/messages/${user._id}`}>
+                               
                                 <div className="media" style={{boxShadow: "1px 0px 0px"}} onClick={this.handleClick(user._id)} >
                                     <div className="media-left">
                                         <img src={Default} className="media-object" style={{width: "40px"}}/>
@@ -64,15 +83,23 @@ class Chat extends Component{
                                         <p>Lorem ipsum...</p>
                                     </div>
                                 </div>
+                                   
                                 // </Link>
                             
                         )
+                        }
+                        
                     })
                 }
+                    </>
+                }
             </div>
-            <div className="col-md-8">
+            <div className="col-md-8" style={{backgroundImage: `url(${chatwall})`}}>
                 {this.state.open &&
                 <Messages toId={this.state.toId} userId={userId}/>
+                }
+                {!this.state.open &&
+                    <h5>Please select a chat to start messaging</h5>
                 }
             </div>
             </div>
